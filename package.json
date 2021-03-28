@@ -13,6 +13,7 @@
   "devDependencies": {
     "benchmark": "2.1.4",
     "beautify-benchmark": "0.2.4",
+    "cross-env": "^7.0.3",
     "eslint": "6.8.0",
     "eslint-config-standard": "14.1.1",
     "eslint-plugin-import": "2.22.0",
@@ -37,9 +38,10 @@
   "scripts": {
     "bench": "node benchmark/index.js",
     "lint": "eslint --plugin markdown --ext js,md .",
-    "test": "mocha --reporter spec --bail test/",
-    "test-noeval": "node --disallow-code-generation-from-strings node_modules/.bin/mocha --reporter spec --bail test/",
-    "test-ci": "nyc --reporter=text npm test",
-    "test-cov": "nyc --reporter=html --reporter=text npm test"
+    "test": "npm run test-eval && npm run test-noeval",
+    "test-eval": "mocha --reporter spec --bail test/",
+    "test-noeval": "cross-env NODE_OPTIONS=--disallow-code-generation-from-strings mocha --reporter spec --bail test/",
+    "test-ci": "nyc --reporter=text npm run test-eval",
+    "test-cov": "nyc --reporter=html --reporter=text npm run test-eval"
   }
 }

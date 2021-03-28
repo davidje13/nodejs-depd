@@ -94,7 +94,7 @@ script:
     if npm -ps ls nyc | grep -q nyc; then
       npm run test-ci
     else
-      npm test
+      npm run test-eval
     fi
   # Run linting
   - |
