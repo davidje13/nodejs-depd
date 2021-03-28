@@ -76,11 +76,11 @@ test_script:
   - ps: |
       node --version
       npm --version
-  # Run test script with eval disabled, if supported (node >= 9)
+  # Run test script with eval disabled, if supported (node 12+)
   - ps: |
-      if ([int]$env:nodejs_version.split(".")[0] -gt 8) {
+      if ([int]$env:nodejs_version.split(".")[0] -gt 11) {
         npm run test-noeval
       }
-  # Run test script
+  # Run test script with eval enabled
   - npm run test-eval
 version: "{build}"

@@ -86,11 +86,13 @@ before_install:
       npm rebuild
     fi
 script:
-  # Run test script
+  # Run test script with eval disabled (requires Node 12+ for NODE_OPTIONS=--disallow-code-generation-from-strings)
   - |
-    if [[ "$(cut -d. -f1 <<< "$TRAVIS_NODE_VERSION")" -gt 8 ]]; then
+    if [[ "$(cut -d. -f1 <<< "$TRAVIS_NODE_VERSION")" -gt 11 ]]; then
       npm run test-noeval
     fi
+  # Run test script with eval enabled (including code coverage if available)
+  - |
     if npm -ps ls nyc | grep -q nyc; then
       npm run test-ci
     else
