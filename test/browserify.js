@@ -5,7 +5,9 @@ var captureStderr = require('./support/capture-stderr')
 var depd = null
 var mylib = null
 var path = require('path')
-var run = browserify ? describe : describe.skip
+var canEval = true
+try { eval('1') } catch (e) { canEval = false } // eslint-disable-line no-eval
+var run = (browserify && canEval) ? describe : describe.skip
 
 run('when browserified', function () {
   before(function (done) {
