@@ -1,13 +1,13 @@
 language: node_js
 node_js:
-  - "0.8"
+  #- "0.8" # not supported by cross-env
   - "0.10"
   - "0.12"
   - "1.8"
   - "2.5"
   - "3.3"
   - "4.9"
-  - "5.12"
+  #- "5.12" # problems installing browserify
   - "6.17"
   - "7.10"
   - "8.17"
