@@ -65,7 +65,16 @@ describe('deprecate(message)', function () {
 
   it('should log call site within eval', function () {
     function callold () { eval('mylib.old()') } // eslint-disable-line no-eval
-    var stderr = captureStderr(callold)
+    var stderr;
+    try {
+      stderr = captureStderr(callold)
+    } catch (e) {
+      if (!(e instanceof EvalError)) {
+        throw e;
+      }
+      // unable to test eval stack trace because eval is blocked in this test environment
+      this.skip();
+    }
     assert.ok(stderr.indexOf(basename(__filename)) !== -1)
     assert.ok(stderr.indexOf('<anonymous>:1:') !== -1)
     assert.ok(/\.js:[0-9]+:[0-9]+/.test(stderr))
